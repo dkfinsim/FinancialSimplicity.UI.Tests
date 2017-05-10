@@ -1,0 +1,14 @@
+<Project
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003"
+  ToolsVersion="4.0">
+
+    <PropertyGroup>
+        <dotnet>"C:\Program Files\dotnet\dotnet.exe"</dotnet>
+        <xunit_console>$(USERPROFILE)\.nuget\packages\xunit.runner.console\2.2.0\tools\xunit.console.exe</xunit_console>
+        <MSBuild>"C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe"</MSBuild>
+    </PropertyGroup>
+
+    <Target Name='RunTests'>
+        <Exec Command="$(MSBuild) /p:Configuration=$(Configuration) FinancialSimplicity.UI.Tests.sln" />
+    </Target>
+</Project>
