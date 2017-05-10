@@ -50,4 +50,8 @@
     <ItemGroup>
       <Folder Include="Properties\" />
     </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="xunit" Version="2.2.0" />
+    </ItemGroup>
 </Project>
