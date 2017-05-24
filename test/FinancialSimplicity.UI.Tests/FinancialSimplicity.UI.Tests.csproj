@@ -52,6 +52,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="FinancialSimplicity.BLL.DataBuilder" Version="1.0.0" />
+      <PackageReference Include="Ima.SQLServerDAL" Version="1.0.0" />
       <PackageReference Include="xunit" Version="2.2.0" />
     </ItemGroup>
 </Project>

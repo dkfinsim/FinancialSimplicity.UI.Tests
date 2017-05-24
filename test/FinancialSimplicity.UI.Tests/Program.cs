@@ -1,4 +1,7 @@
 ﻿using FinancialSimplicity.UI.PageObjects;
+using Ima.Authorisation;
+using Ima.BLL.v2;
+using Ima.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +43,26 @@ namespace FinancialSimplicity.UI.Tests
 
             using (var testfixture = new WebTestsFixture())
             {
+                StructureMap.IContainer container = new StructureMap.Container();
+                var dataBuilder = new FinancialSimplicity.BLL.DataBuilder.DataBuilder(container);
+                Ima.Common.IoC.Container = container;
+                container.Configure(
+                    c =>
+                    {
+                        c.AddRegistry(new ConfigRegistry(null));
+                        c.AddRegistry<AuthorisationRegistry>();
+                    });
+                container.Configure(
+                    c =>
+                    {
+                        c.AddRegistry(new RepositoryRegistry(() => dataBuilder.CurrentAuthorisationObject, container.GetInstance<IPRMConfig>()));
+                        c.AddRegistry<FinancialSimplicity.BLL.Commands.CommandRegistry>();
+                        c.AddRegistry<Ima.BLL.BllRegistry>();
+                    });
+                dataBuilder
+                    .AddPrinciple("admin", "system")
+                    .AddDomain(d => d.is_system_domain = true)
+                    ;
                 foreach (var test in tests)
                 {
                     Console.WriteLine($"Executing test {test.FullName}");
@@ -47,10 +70,11 @@ namespace FinancialSimplicity.UI.Tests
                     try
                     {
                         testFixturesRun++;
-                        var testInstance = Activator.CreateInstance(test, testfixture);
+                        var testInstance = Activator.CreateInstance(test, testfixture, dataBuilder);
 
                         var testMethods = test.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance).Where(m => m.CustomAttributes.Any(a => a.AttributeType == typeof(Xunit.FactAttribute)));
 
+                        var testFixturePassed = true;
                         foreach (var testMethod in testMethods)
                         {
                             Console.Write(testMethod.Name);
@@ -65,13 +89,22 @@ namespace FinancialSimplicity.UI.Tests
                                 WriteError(" failed\r\n");
                                 Console.WriteLine(ex);
                                 testsFailed++;
+                                testFixturePassed = false;
                             }
+                        }
+                        if (!testFixturePassed)
+                        {
+                            testFixturessFailed++;
                         }
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine(ex);
                         testFixturessFailed++;
+                    }
+                    finally
+                    {
+                        dataBuilder.Cleanup();
                     }
                 }
             }

@@ -14,9 +14,20 @@ namespace FinancialSimplicity.UI.Tests.Login
     public class login_page_can_login
     {
         WebTestsFixture _webTestsFixture;
-        public login_page_can_login(WebTestsFixture webTestsFixture)
+        FinancialSimplicity.BLL.DataBuilder.DataBuilder _dataBuilder;
+        public login_page_can_login(WebTestsFixture webTestsFixture, FinancialSimplicity.BLL.DataBuilder.DataBuilder dataBuilder)
         {
             _webTestsFixture = webTestsFixture;
+            _dataBuilder = dataBuilder;
+
+            _dataBuilder
+                .AddCurrency("AUD", "AUD", c => c.is_default = true)
+                .UpdateInvestments()
+                .AddPrinciple("login_page", "login_page_can_login")
+                .AddDomain()
+                //.AddDomain(d => d.display_props = (int)(Ima.Model.Constants.DomainDisplayProps.))
+                .EnsureAuthenticationDomainExists()
+                .AddAuthenticationUser("login_page", userId: "login_page");
         }
 
         [Fact]
@@ -24,9 +35,9 @@ namespace FinancialSimplicity.UI.Tests.Login
         {
             var loginPage = new WebApplication(_webTestsFixture).EnsureUserLoggedOut();
 
-            loginPage.Domain.Value = "";
-            loginPage.UserName.Value = "";
-            loginPage.Password.Value = "";
+            loginPage.Domain.Value = "login_page_can_login";
+            loginPage.UserName.Value = "login_page";
+            loginPage.Password.Value = "password";
 
             loginPage.LoginButton.Click(waitUntil: d => d.Title.StartsWith("Dashboards", StringComparison.OrdinalIgnoreCase));
 
@@ -40,9 +51,9 @@ namespace FinancialSimplicity.UI.Tests.Login
             application.EnsureUserLoggedOut();
             var loginPage = application.GoToLoginPage(returnUrl: Pages.Investors);
 
-            loginPage.Domain.Value = "";
-            loginPage.UserName.Value = "";
-            loginPage.Password.Value = "";
+            loginPage.Domain.Value = "login_page_can_login";
+            loginPage.UserName.Value = "login_page";
+            loginPage.Password.Value = "password";
 
             loginPage.LoginButton.Click(waitUntil: d => d.Title.StartsWith("Investors", StringComparison.OrdinalIgnoreCase));
 

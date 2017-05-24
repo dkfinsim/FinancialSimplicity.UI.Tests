@@ -8,6 +8,26 @@
         <MSBuild>"C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe"</MSBuild>
     </PropertyGroup>
 
+    <Target Name="Restore">
+        <Exec
+          Condition=" '$(GitBranch)' != '' and '$(GitBranch)' != 'master' "
+          Command="$(dotnet) restore FinancialSimplicity.UI.Tests.sln --source &quot;C:\IMA\NuGetPackages&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\FinancialSimplicity.NuGet.Branches\$(GitBranch)&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\FinancialSimplicity.NuGet&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\3rd Party Software Applications\NuGet Packages&quot; --source &quot;https://api.nuget.org/v3/index.json&quot; --ignore-failed-sources"/>
+        <Exec
+          Condition=" '$(GitBranch)' == '' or '$(GitBranch)' == 'master' "
+          Command="$(dotnet) restore FinancialSimplicity.UI.Tests.sln --source &quot;C:\IMA\NuGetPackages&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\FinancialSimplicity.NuGet&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\3rd Party Software Applications\NuGet Packages&quot; --source &quot;https://api.nuget.org/v3/index.json&quot; --ignore-failed-sources"/>
+    </Target>
+
+    <Target Name="Clean">
+        <ItemGroup>
+            <CacheDirectories1 Include='$([System.IO.Directory]::GetDirectories("$(USERPROFILE)\.nuget\packages", "FinancialSimplicity.*"))' />
+            <CacheDirectories2 Include='$([System.IO.Directory]::GetDirectories("$(USERPROFILE)\.nuget\packages", "Ima.*"))' />
+        </ItemGroup>
+
+        <RemoveDir Directories="@(CacheDirectories1)"/>
+        <RemoveDir Directories="@(CacheDirectories2)"/>
+        <CallTarget Targets="Restore" />
+    </Target>
+
     <Target Name='RunTests'>
         <Exec Command="$(MSBuild) /p:Configuration=$(Configuration) FinancialSimplicity.UI.Tests.sln" />
     </Target>

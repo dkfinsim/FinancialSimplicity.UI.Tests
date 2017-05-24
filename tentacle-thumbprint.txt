@@ -1,0 +1,1 @@
+Cannot start service from the command line or a debugger.  A Windows Service must first be installed (using installutil.exe) and then started with the ServerExplorer, Windows Services Administrative tool or the NET START command.
