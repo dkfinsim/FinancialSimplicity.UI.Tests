@@ -75,9 +75,16 @@ $nsgRuleOctopus = New-AzureRmNetworkSecurityRuleConfig -Name "uiTestNetworkSecur
   -DestinationPortRange 10933 -Access Allow
 
 Write-Host "######################################"
+Write-Host "Create an inbound network security group rule for sql server"
+Write-Host "######################################"
+$nsgRuleSqlServer = New-AzureRmNetworkSecurityRuleConfig -Name "uiTestNetworkSecurityGroupRuleSqlServer"  -Protocol Tcp `
+  -Direction Inbound -Priority 600 -SourceAddressPrefix * -SourcePortRange * -DestinationAddressPrefix * `
+  -DestinationPortRange 1433 -Access Allow
+
+Write-Host "######################################"
 Write-Host "Create a network security group"
 Write-Host "######################################"
-$nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroup -Location $location -Name "uiTestSecurityGroup" -SecurityRules $nsgRuleRDP,$nsgRulePS,$nsgRuleHTTP,$nsgRuleOctopus
+$nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroup -Location $location -Name "uiTestSecurityGroup" -SecurityRules $nsgRuleRDP,$nsgRulePS,$nsgRuleHTTP,$nsgRuleOctopus,$nsgRuleSqlServer
 
 Write-Host "######################################"
 Write-Host "Create a virtual network card and associate with public IP address and NSG"
@@ -142,3 +149,7 @@ Copy-Item -Path D:\tentacle-thumbprint.txt -Destination artifacts\tentacle-thumb
 $thumbprint = get-content artifacts\tentacle-thumbprint.txt | % { $_.Split(' ')[-1] }
 
 .\server-scripts\add-tentacle-to-octopus.ps1 -vmName $vmName -location $location -thumbprint $thumbprint
+
+.\server-scripts\start-deployment.ps1
+
+& .\build.cmd azure

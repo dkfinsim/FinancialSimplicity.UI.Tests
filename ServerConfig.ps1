@@ -40,3 +40,14 @@ Invoke-WebRequest 'https://octopus.com/downloads/latest/WindowsX64/OctopusTentac
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\system /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f
 
 mkdir "C:\Program Files\Financial Simplicity\OnTarget"
+
+netsh advfirewall firewall add rule name="Sql Server" dir=in action=allow protocol=TCP localport=1433
+
+Import-Module "sqlps"
+$smo = 'Microsoft.SqlServer.Management.Smo.'
+$wmi = new-object ($smo + 'Wmi.ManagedComputer').
+# Enable the TCP protocol on the default instance.
+$uri = "ManagedComputer[@Name='" + (get-item env:\computername).Value + "']/ServerInstance[@Name='MSSQLSERVER']/ServerProtocol[@Name='Tcp']"
+$Tcp = $wmi.GetSmoObject($uri)
+$Tcp.IsEnabled = $true
+$Tcp.Alter()

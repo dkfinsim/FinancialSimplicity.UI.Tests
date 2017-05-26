@@ -21,8 +21,6 @@ namespace FinancialSimplicity.UI.Tests.Login
             _dataBuilder = dataBuilder;
 
             _dataBuilder
-                .AddCurrency("AUD", "AUD", c => c.is_default = true)
-                .UpdateInvestments()
                 .AddPrinciple("login_page", "login_page_can_login")
                 .AddDomain()
                 //.AddDomain(d => d.display_props = (int)(Ima.Model.Constants.DomainDisplayProps.))

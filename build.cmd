@@ -9,18 +9,29 @@ if "%1"=="clean" GOTO :restore
 GOTO :build
 
 :restore
-msbuild build.proj /target:%1 /p:GitBranch=%2
+"C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" build.proj /target:%1 /p:GitBranch=%2
 GOTO :EOF
 
 :build
 set path=%path%;C:\temp\selenium
 set test_browser=firefox
-set domain_url=https://localhost:44399
 set site_url=/ontarget
 
 set config=Debug
 
-msbuild build.proj /target:RunTests /p:Configuration=%config%
+"C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" build.proj /target:RunTests /p:Configuration=%config%
 
+if "%1"=="azure" GOTO :azureconfig
+GOTO :localconfig
+
+:localconfig
 copy TestFSConfig.config test\FinancialSimplicity.UI.Tests\bin\%config%\net462
-rem test\FinancialSimplicity.UI.Tests\bin\%config%\net462\FinancialSimplicity.UI.Tests.exe %1
+set domain_url=https://localhost:44399
+test\FinancialSimplicity.UI.Tests\bin\%config%\net462\FinancialSimplicity.UI.Tests.exe %1
+GOTO :EOF
+
+:azureconfig
+copy AzureFSConfig.config test\FinancialSimplicity.UI.Tests\bin\%config%\net462\TestFSConfig.config
+set domain_url=http://uitestvm.australiaeast.cloudapp.azure.com
+test\FinancialSimplicity.UI.Tests\bin\%config%\net462\FinancialSimplicity.UI.Tests.exe %2
+GOTO :EOF
