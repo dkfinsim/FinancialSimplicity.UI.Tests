@@ -27,6 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "server-scripts", "server-sc
 	ProjectSection(SolutionItems) = preProject
 		server-scripts\add-tentacle-to-octopus.ps1 = server-scripts\add-tentacle-to-octopus.ps1
 		server-scripts\get-server-tentacle-thumbprint.ps1 = server-scripts\get-server-tentacle-thumbprint.ps1
+		server-scripts\remove-tentacle-from-octopus.ps1 = server-scripts\remove-tentacle-from-octopus.ps1
 		server-scripts\start-deployment.ps1 = server-scripts\start-deployment.ps1
 	EndProjectSection
 EndProject

@@ -13,10 +13,12 @@ $octopusURI = 'http://internalapp1:8080'
 $endpoint = new-object Octopus.Client.OctopusServerEndpoint $octopusURI, $octopusApiKey
 $repository = new-object Octopus.Client.OctopusRepository $endpoint
 
+$environment = $repository.environments.findbyname("ui-test");
+
 $tentacle = New-Object Octopus.Client.Model.MachineResource
 
 $tentacle.name = "UI Test"
-$tentacle.EnvironmentIds.Add("Environments-121")
+$tentacle.EnvironmentIds.Add($environment.id)
 $tentacle.Roles.Add("APPSERVER")
 $tentacle.Roles.Add("DBSERVER")
 

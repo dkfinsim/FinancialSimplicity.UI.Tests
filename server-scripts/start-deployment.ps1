@@ -1,3 +1,5 @@
+param($version)
+
 Add-Type -Path 'Octopus.Client.dll' 
 
 $octopusApiKey = 'API-ISUO3MDTAYZUQRAPW1NN46RKJOU'
@@ -17,7 +19,7 @@ $ontargetproject = $repository.projects.findbyname("ontarget");
 write-host "######################################"
 write-host "get release"
 write-host "######################################"
-$release = $repository.projects.getreleasebyversion($ontargetproject, "17.2.21.22");
+$release = $repository.projects.getreleasebyversion($ontargetproject, $version);
 $deployment = new-object octopus.client.model.deploymentresource
 $deployment.releaseid = $release.id
 $deployment.projectid = $ontargetproject.id
