@@ -1,5 +1,8 @@
 param([Parameter(Mandatory=$true)]$version)
 
+cd $PSScriptRoot.Substring(0, 2)
+cd $PSScriptRoot
+
 $ErrorActionPreference = "Stop"
 $resourceGroup = "ui_testing_resources"
 $location = "australiaeast"
