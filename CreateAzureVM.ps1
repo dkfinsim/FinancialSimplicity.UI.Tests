@@ -6,10 +6,6 @@ $vmName = "uitestvm"
 cd $PSScriptRoot.Substring(0, 2)
 cd $PSScriptRoot
 
-$CCNetLabel
-return;
-
-
 Write-Host "######################################"
 Write-Host "Create user object"
 Write-Host "######################################"
