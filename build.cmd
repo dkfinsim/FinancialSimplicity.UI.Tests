@@ -21,6 +21,7 @@ set config=Debug
 
 "C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" build.proj /target:RunTests /p:Configuration=%config%
 
+if "%1"=="buildonly" GOTO :EOF
 if "%1"=="azure" GOTO :azureconfig
 GOTO :localconfig
 

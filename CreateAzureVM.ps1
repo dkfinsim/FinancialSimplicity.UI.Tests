@@ -140,7 +140,10 @@ Copy-Item -Path DbCreationScripts\schema.sql -Destination D:\ -ToSession $sess
 Copy-Item -Path DbCreationScripts\historySchema.sql -Destination D:\ -ToSession $sess
 Copy-Item -Path DbCreationScripts\CreateDefaultData.sql -Destination D:\ -ToSession $sess
 
-& src\LicenseGen\bin\Debug\net451\LicenseGen.exe c:\ima\RebalancingAPI\masterkey.mkey .\artifacts\financialsimplicity.rebalancingapi.license
+& .\build.cmd restore $CCNetLabel
+& .\build.cmd buildonly
+& .\src\LicenseGen\bin\Debug\net451\LicenseGen.exe E:\src\API\master\masterkey.mkey .\artifacts\financialsimplicity.rebalancingapi.license
+
 Write-Host "######################################"
 Write-Host "Upload application license file"
 Write-Host "######################################"
