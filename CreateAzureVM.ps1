@@ -1,12 +1,14 @@
-param([Parameter(Mandatory=$true)]$version)
-
-cd $PSScriptRoot.Substring(0, 2)
-cd $PSScriptRoot
-
 $ErrorActionPreference = "Stop"
 $resourceGroup = "ui_testing_resources"
 $location = "australiaeast"
 $vmName = "uitestvm"
+
+cd $PSScriptRoot.Substring(0, 2)
+cd $PSScriptRoot
+
+$CCNetLabel
+return;
+
 
 Write-Host "######################################"
 Write-Host "Create user object"
@@ -163,7 +165,7 @@ $thumbprint = get-content artifacts\tentacle-thumbprint.txt | select -First 1 -S
 
 .\server-scripts\add-tentacle-to-octopus.ps1 -vmName $vmName -location $location -thumbprint $thumbprint
 
-.\server-scripts\start-deployment.ps1 -version $version
+.\server-scripts\start-deployment.ps1 -version $CCNetLabel
 
 & .\build.cmd azure
 
