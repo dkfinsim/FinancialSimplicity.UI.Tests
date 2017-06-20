@@ -14,6 +14,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BC9ADF24-F35D-4603-9C86-4A67176CD6CF}"
 	ProjectSection(SolutionItems) = preProject
 		ApplicationConfig.ps1 = ApplicationConfig.ps1
+		AzureCleanUp.ps1 = AzureCleanUp.ps1
 		AzureFSConfig.config = AzureFSConfig.config
 		build.cmd = build.cmd
 		build.proj = build.proj
@@ -31,7 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "server-scripts", "server-sc
 		server-scripts\start-deployment.ps1 = server-scripts\start-deployment.ps1
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LicenseGen", "src\LicenseGen\LicenseGen.csproj", "{7A0E05A9-092B-4997-B98D-C12203167EFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LicenseGen", "src\LicenseGen\LicenseGen.csproj", "{7A0E05A9-092B-4997-B98D-C12203167EFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

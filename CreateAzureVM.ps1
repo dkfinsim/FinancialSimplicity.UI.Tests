@@ -166,9 +166,3 @@ $thumbprint = get-content artifacts\tentacle-thumbprint.txt | select -First 1 -S
 .\server-scripts\add-tentacle-to-octopus.ps1 -vmName $vmName -location $location -thumbprint $thumbprint
 
 .\server-scripts\start-deployment.ps1 -version $CCNetLabel
-
-& .\build.cmd azure
-
-Remove-AzureRmResourceGroup -Name $resourceGroup -Force
-
-.\server-scripts\remove-tentacle-from-octopus.ps1

@@ -31,4 +31,11 @@
     <Target Name='RunTests'>
         <Exec Command="$(MSBuild) /p:Configuration=$(Configuration) FinancialSimplicity.UI.Tests.sln" />
     </Target>
+
+    <Target Name="SetUpAzure">
+        <Exec
+            Command="powershell $(MSBuildProjectDirectory)\CreateAzureVM.ps1 -version $(CCNetLabel)"
+            WorkingDirectory="$(MSBuildProjectDirectory)"
+            />
+    </Target>
 </Project>
