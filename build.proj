@@ -10,10 +10,10 @@
 
     <Target Name="Restore">
         <Exec
-          Condition=" '$(GitBranch)' != '' and '$(GitBranch)' != 'master' "
-          Command="$(dotnet) restore FinancialSimplicity.UI.Tests.sln --source &quot;C:\IMA\NuGetPackages&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\FinancialSimplicity.NuGet.Branches\$(GitBranch)&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\FinancialSimplicity.NuGet&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\3rd Party Software Applications\NuGet Packages&quot; --source &quot;https://api.nuget.org/v3/index.json&quot; --ignore-failed-sources"/>
+          Condition=" '$(CCNetLabel)' != '' and '$(CCNetLabel)' != 'master' "
+          Command="$(dotnet) restore FinancialSimplicity.UI.Tests.sln --source &quot;C:\IMA\NuGetPackages&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\FinancialSimplicity.NuGet.Branches\$(CCNetLabel)&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\FinancialSimplicity.NuGet&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\3rd Party Software Applications\NuGet Packages&quot; --source &quot;https://api.nuget.org/v3/index.json&quot; --ignore-failed-sources"/>
         <Exec
-          Condition=" '$(GitBranch)' == '' or '$(GitBranch)' == 'master' "
+          Condition=" '$(CCNetLabel)' == '' or '$(CCNetLabel)' == 'master' "
           Command="$(dotnet) restore FinancialSimplicity.UI.Tests.sln --source &quot;C:\IMA\NuGetPackages&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\FinancialSimplicity.NuGet&quot; --source &quot;\\internalapp1\Financial Simplicity\Internal IT\3rd Party Software Applications\NuGet Packages&quot; --source &quot;https://api.nuget.org/v3/index.json&quot; --ignore-failed-sources"/>
     </Target>
 
