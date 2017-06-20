@@ -1,3 +1,5 @@
+param($version)
+
 $ErrorActionPreference = "Stop"
 $resourceGroup = "ui_testing_resources"
 $location = "australiaeast"

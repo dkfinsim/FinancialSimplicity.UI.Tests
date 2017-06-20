@@ -28,7 +28,7 @@
         <CallTarget Targets="Restore" />
     </Target>
 
-    <Target Name='RunTests'>
+    <Target Name='build'>
         <Exec Command="$(MSBuild) /p:Configuration=$(Configuration) FinancialSimplicity.UI.Tests.sln" />
     </Target>
 
