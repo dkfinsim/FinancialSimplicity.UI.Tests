@@ -142,6 +142,7 @@ Copy-Item -Path DbCreationScripts\CreateDefaultData.sql -Destination D:\ -ToSess
 
 & .\build.cmd restore $CCNetLabel
 & .\build.cmd buildonly
+New-Item -ItemType Directory -Force -Path .\artifacts
 & .\src\LicenseGen\bin\Debug\net451\LicenseGen.exe E:\src\API\master\masterkey.mkey .\artifacts\financialsimplicity.rebalancingapi.license
 
 Write-Host "######################################"
