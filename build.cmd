@@ -9,7 +9,7 @@ if "%1"=="clean" GOTO :restore
 GOTO :build
 
 :restore
-"C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" build.proj /target:%1 /p:CCNetLabel=%2
+"C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" build.proj /target:%1 /p:GitBranch=%2
 GOTO :EOF
 
 :build
