@@ -37,7 +37,7 @@ namespace FinancialSimplicity.UI.PageObjects
                         break;
                 }
                 capability.SetCapability("browserstack.user", Environment.GetEnvironmentVariable("browserstack_user"));
-                capability.SetCapability("browserstack.key", Environment.GetEnvironmentVariable("browserstack_user"));
+                capability.SetCapability("browserstack.key", Environment.GetEnvironmentVariable("browserstack_key"));
 
                 WebDriver = new RemoteWebDriver(
                   new Uri("http://hub-cloud.browserstack.com/wd/hub/"), capability
