@@ -38,4 +38,11 @@
             WorkingDirectory="$(MSBuildProjectDirectory)"
             />
     </Target>
+
+    <Target Name="CleanUpAzure">
+        <Exec
+            Command="%SystemRoot%\sysnative\WindowsPowerShell\v1.0\powershell.exe $(MSBuildProjectDirectory)\AzureCleanUP.ps1"
+            WorkingDirectory="$(MSBuildProjectDirectory)"
+            />
+    </Target>
 </Project>
