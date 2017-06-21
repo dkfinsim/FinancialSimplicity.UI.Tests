@@ -34,7 +34,7 @@
 
     <Target Name="SetUpAzure">
         <Exec
-            Command="%SystemRoot%\sysnative\WindowsPowerShell\v1.0\powershell.exe $(MSBuildProjectDirectory)\CreateAzureVM.ps1 -version $(CCNetLabel)"
+            Command="%SystemRoot%\sysnative\WindowsPowerShell\v1.0\powershell.exe $(MSBuildProjectDirectory)\CreateAzureVM.ps1 -version $(CCNetLabel) -branch $(GitBranch)"
             WorkingDirectory="$(MSBuildProjectDirectory)"
             />
     </Target>

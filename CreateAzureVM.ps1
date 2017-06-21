@@ -1,4 +1,4 @@
-param($version)
+param($branch, $version)
 
 $ErrorActionPreference = "Stop"
 $resourceGroup = "ui_testing_resources"
@@ -142,7 +142,7 @@ Copy-Item -Path DbCreationScripts\schema.sql -Destination D:\ -ToSession $sess
 Copy-Item -Path DbCreationScripts\historySchema.sql -Destination D:\ -ToSession $sess
 Copy-Item -Path DbCreationScripts\CreateDefaultData.sql -Destination D:\ -ToSession $sess
 
-& .\build.cmd restore $version
+& .\build.cmd restore $branch
 & .\build.cmd buildonly
 New-Item -ItemType Directory -Force -Path .\artifacts
 & .\src\LicenseGen\bin\Debug\net451\LicenseGen.exe E:\src\API\master\masterkey.mkey .\artifacts\financialsimplicity.rebalancingapi.license
